@@ -72,6 +72,18 @@ class ReadingAppState(
 ) {
 
     /**
+     * 底部导航列表
+     */
+    val topLevelDestination: List<TopLevelDestination> = TopLevelDestination.values().asList()
+
+    /**
+     * 当前选中的底部tab
+     */
+    val currentDestination: NavDestination?
+        @Composable get() =
+            navController.currentBackStackEntryAsState().value?.destination
+
+    /**
      * 底部导航蓝切换tab
      * @param topLevelDestination TopLevelDestination 点击的tab
      */
@@ -105,17 +117,5 @@ class ReadingAppState(
             }
         }
     }
-
-    /**
-     * 底部导航列表
-     */
-    val topLevelDestination: List<TopLevelDestination> = TopLevelDestination.values().asList()
-
-    /**
-     * 当前选中的底部tab
-     */
-    val currentTopLevelDestination: NavDestination?
-        @Composable get() =
-            navController.currentBackStackEntryAsState().value?.destination
 
 }

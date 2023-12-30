@@ -11,8 +11,11 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.NavigationRailItem
+import androidx.compose.material3.NavigationRailItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
@@ -35,7 +38,7 @@ import com.fylan.reading.navigation.TopLevelDestination
  */
 
 /**
- *
+ * 主页
  *
  * @param appState ReadingAppState
  */
@@ -79,7 +82,7 @@ fun ReadingApp(
             ReadingBottom(
                 modifier = Modifier.testTag("ReadingBottomBar"),
                 destinations = appState.topLevelDestination,
-                currentDestination = appState.currentTopLevelDestination,
+                currentDestination = appState.currentDestination,
 //                onNavigateTopLevelDestination = { topLevelDestination ->
 //                    appState.navigateToTopLevelDestination(topLevelDestination)
 //                },
@@ -140,9 +143,30 @@ fun ReadingBottom(
                         Text(text = stringResource(id = destination.titleTextId))
                     },
                     modifier = modifier,
+                    colors = NavigationRailItemDefaults.colors(
+                        selectedIconColor = NavigationDefaults.navigationSelectedItemColor(),
+                        unselectedIconColor = NavigationDefaults.navigationContentColor(),
+                        selectedTextColor = NavigationDefaults.navigationSelectedItemColor(),
+                        unselectedTextColor = NavigationDefaults.navigationContentColor(),
+                        indicatorColor = NavigationDefaults.navigationIndicatorColor(),
+                    )
                 )
 
             }
         }
     )
+}
+
+/**
+ * Now in Android navigation default values.
+ */
+object NavigationDefaults {
+    @Composable
+    fun navigationContentColor() = MaterialTheme.colorScheme.onSurfaceVariant
+
+    @Composable
+    fun navigationSelectedItemColor() = MaterialTheme.colorScheme.onPrimaryContainer
+
+    @Composable
+    fun navigationIndicatorColor() = MaterialTheme.colorScheme.primaryContainer
 }
