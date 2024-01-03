@@ -18,6 +18,7 @@ import com.fylan.reading.core.database.model.BookEntity
     autoMigrations = [
 
     ],
+    exportSchema = true,
 )
 abstract class ReadingDatabase : RoomDatabase() {
     abstract fun bookDao(): BookDao

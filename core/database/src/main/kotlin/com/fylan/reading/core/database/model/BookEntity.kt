@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey
 data class BookEntity(
     @PrimaryKey
     @ColumnInfo(name = "book_id")
-    val bookId: String?,
+    val bookId: String,
     @ColumnInfo(name = "book_name")
     val bookName: String?,
     @ColumnInfo(name = "book_content")
