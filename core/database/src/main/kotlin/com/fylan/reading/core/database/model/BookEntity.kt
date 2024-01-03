@@ -3,6 +3,7 @@ package com.fylan.reading.core.database.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.UUID
 
 /**
  * @author Create by f.
@@ -15,17 +16,17 @@ import androidx.room.PrimaryKey
 data class BookEntity(
     @PrimaryKey
     @ColumnInfo(name = "book_id")
-    val bookId: String,
+    val bookId: String = UUID.randomUUID().toString(),
     @ColumnInfo(name = "book_name")
     val bookName: String?,
     @ColumnInfo(name = "book_content")
-    val bookContent: String?,
+    val bookContent: String? = "",
     @ColumnInfo(name = "book_author")
-    val author: String?,
+    val author: String? = "",
     @ColumnInfo(name = "book_shortIntro")
-    val shortIntro: String?,
+    val shortIntro: String? = "",
     @ColumnInfo(name = "book_cover")
-    val cover: String?,
+    val cover: String? = "",
     //章节
 ) {
 }
