@@ -13,7 +13,7 @@ import androidx.navigation.compose.composable
  * Describe:
  */
 
-const val bookShelfNavDestinationRoute = "book_shelf_route"
+const val bookShelfNavDestinationRoute = "bookshelf_route"
 
 fun NavController.navigateToBookShelf(navOptions: NavOptions? = null) {
     this.navigate(bookShelfNavDestinationRoute, navOptions)

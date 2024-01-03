@@ -13,21 +13,20 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.NavigationRailItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
-import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.NavHost
+import com.fylan.reading.feature.bookshelf.navigation.bookShelfNavDestinationRoute
 import com.fylan.reading.feature.bookshelf.navigation.bookShelfScreen
-import com.fylan.reading.feature.bookstore.navigation.bookStoreNavDestinationRoute
 import com.fylan.reading.feature.bookstore.navigation.bookStoreScreen
 import com.fylan.reading.navigation.TopLevelDestination
 
@@ -68,7 +67,7 @@ fun ReadingApp(
                     //主内容
                     NavHost(
                         navController = appState.navController,
-                        startDestination = bookStoreNavDestinationRoute,
+                        startDestination = bookShelfNavDestinationRoute,
                         modifier = Modifier,
                         builder = {
                             bookShelfScreen { }
@@ -117,9 +116,7 @@ fun ReadingBottom(
         content = {
             destinations.forEach { destination ->
                 //判断当前选中的item
-                val selected = currentDestination?.hierarchy?.any {
-                    it.route?.contains(destination.name, true) ?: false
-                } ?: false
+                val selected = currentDestination?.route?.contains(destination.name, true) ?: false
                 //创建底部tab
                 NavigationRailItem(
                     selected = selected,
@@ -142,7 +139,9 @@ fun ReadingBottom(
                     label = {
                         Text(text = stringResource(id = destination.titleTextId))
                     },
-                    modifier = modifier,
+                    modifier = modifier
+                        .weight(1.0f)
+                        .align(Alignment.CenterVertically),
                     colors = NavigationRailItemDefaults.colors(
                         selectedIconColor = NavigationDefaults.navigationSelectedItemColor(),
                         unselectedIconColor = NavigationDefaults.navigationContentColor(),

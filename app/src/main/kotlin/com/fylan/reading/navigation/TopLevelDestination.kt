@@ -22,8 +22,8 @@ enum class TopLevelDestination(
     BOOKSHELF(
         selectedIcon = ReadingIcons.Upcoming,
         unselectedIcon = ReadingIcons.UpcomingBorder,
-        iconTextId = bookstoreR.string.bookstore,
-        titleTextId = bookstoreR.string.bookstore,
+        iconTextId = bookshelfR.string.bookshelf,
+        titleTextId = bookshelfR.string.bookshelf,
     ),
 
     /**
@@ -32,7 +32,7 @@ enum class TopLevelDestination(
     BOOKSTORE(
         selectedIcon = ReadingIcons.Upcoming,
         unselectedIcon = ReadingIcons.UpcomingBorder,
-        iconTextId = bookshelfR.string.bookshelf,
-        titleTextId = bookshelfR.string.bookshelf,
+        iconTextId = bookstoreR.string.bookstore,
+        titleTextId = bookstoreR.string.bookstore,
     ),
 }

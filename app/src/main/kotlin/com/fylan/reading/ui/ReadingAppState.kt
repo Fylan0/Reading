@@ -80,8 +80,7 @@ class ReadingAppState(
      * 当前选中的底部tab
      */
     val currentDestination: NavDestination?
-        @Composable get() =
-            navController.currentBackStackEntryAsState().value?.destination
+        @Composable get() = navController.currentBackStackEntryAsState().value?.destination
 
     /**
      * 底部导航蓝切换tab

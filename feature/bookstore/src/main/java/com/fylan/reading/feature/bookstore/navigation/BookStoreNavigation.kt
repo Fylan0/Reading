@@ -13,7 +13,7 @@ import androidx.navigation.compose.composable
  * Describe:
  */
 
-const val bookStoreNavDestinationRoute = "book_store_route"
+const val bookStoreNavDestinationRoute = "bookstore_route"
 
 fun NavController.navigateToBookStore(navOptions: NavOptions? = null) {
     this.navigate(bookStoreNavDestinationRoute, navOptions)
