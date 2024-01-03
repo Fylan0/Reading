@@ -57,6 +57,7 @@ dependencies {
     implementation(project(":core:designsystem"))
     implementation(project(":feature:bookstore"))
     implementation(project(":feature:bookshelf"))
+    implementation(project(":feature:read"))
 
 
     //借助 Compose 物料清单 (BoM)，您只需指定 BoM 的版本，即可管理所有 Compose 库版本
