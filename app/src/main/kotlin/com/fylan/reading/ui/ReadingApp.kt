@@ -1,5 +1,6 @@
 package com.fylan.reading.ui
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -17,18 +19,23 @@ import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.NavigationRailItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
 import androidx.navigation.compose.NavHost
+import com.fylan.reading.core.designsystem.icon.ReadingIcons
+import com.fylan.reading.core.designsystem.icon.component.ReadingTopAppBar
 import com.fylan.reading.feature.bookshelf.navigation.bookShelfNavDestinationRoute
 import com.fylan.reading.feature.bookshelf.navigation.bookShelfScreen
 import com.fylan.reading.feature.bookstore.navigation.bookStoreScreen
 import com.fylan.reading.navigation.TopLevelDestination
+import com.fylan.reading.feature.settings.R as settingsR
 
 /**
  * @author Create by f.
@@ -41,6 +48,7 @@ import com.fylan.reading.navigation.TopLevelDestination
  *
  * @param appState ReadingAppState
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReadingApp(
     windowSizeClass: WindowSizeClass,
@@ -62,7 +70,30 @@ fun ReadingApp(
                     )
             ) {
                 Column(modifier = Modifier.fillMaxSize()) {
-                    //topBar可以在这块加
+                    val destination = appState.currentTopLevelDestination
+                    //在主bottom tab页下才展示top bar
+                    if (destination != null) {
+                        ReadingTopAppBar(
+                            titleRes = destination.titleTextId,
+                            navigationIcon = ReadingIcons.Settings,
+                            navigationIconContentDescription = stringResource(
+                                id = settingsR.string.setting,
+                            ),
+                            actionIcon = ReadingIcons.Add,
+                            actionIconContentDescription = stringResource(
+                                id = settingsR.string.add,
+                            ),
+                            colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                                containerColor = Color.Transparent,
+                            ),
+                            onActionClick = {
+                                Log.d("ReadingApp", "top bar setting")
+                            },
+                            onNavigationClick = {
+                                Log.d("ReadingApp", "top bar add")
+                            },
+                        )
+                    }
 
                     //主内容
                     NavHost(

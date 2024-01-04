@@ -6,14 +6,15 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.util.trace
-import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.fylan.reading.feature.bookshelf.navigation.bookShelfNavDestinationRoute
 import com.fylan.reading.feature.bookshelf.navigation.navigateToBookShelf
+import com.fylan.reading.feature.bookstore.navigation.bookStoreNavDestinationRoute
 import com.fylan.reading.feature.bookstore.navigation.navigateToBookStore
 import com.fylan.reading.navigation.TopLevelDestination
 import kotlinx.coroutines.CoroutineScope
@@ -81,6 +82,13 @@ class ReadingAppState(
      */
     val currentDestination: NavDestination?
         @Composable get() = navController.currentBackStackEntryAsState().value?.destination
+
+    val currentTopLevelDestination: TopLevelDestination?
+        @Composable get() = when (currentDestination?.route) {
+            bookShelfNavDestinationRoute -> TopLevelDestination.BOOKSHELF
+            bookStoreNavDestinationRoute -> TopLevelDestination.BOOKSTORE
+            else -> null
+        }
 
     /**
      * 底部导航蓝切换tab

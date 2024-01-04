@@ -58,6 +58,7 @@ dependencies {
     implementation(project(":feature:bookstore"))
     implementation(project(":feature:bookshelf"))
     implementation(project(":feature:read"))
+    implementation(project(":feature:settings"))
 
 
     //借助 Compose 物料清单 (BoM)，您只需指定 BoM 的版本，即可管理所有 Compose 库版本
@@ -69,6 +70,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.testManifest)
 
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.documentfile)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
