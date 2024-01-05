@@ -1,5 +1,6 @@
 package com.fylan.reading.core.database
 
+import com.fylan.reading.core.database.dao.BookChapterDao
 import com.fylan.reading.core.database.dao.BookDao
 import dagger.Module
 import dagger.Provides
@@ -20,5 +21,9 @@ object DaosModule {
         return database.bookDao()
     }
 
+    @Provides
+    fun providesBookChapterDao(database: ReadingDatabase): BookChapterDao {
+        return database.bookChapterDao()
+    }
 
 }

@@ -1,12 +1,12 @@
-package com.fylan.reading.feature.read.utils
+package com.fylan.reading.feature.settings.utils
 
 import android.content.Context
-import com.fylan.reading.core.database.model.BookChapter
+import androidx.documentfile.provider.DocumentFile
+import com.fylan.reading.core.database.model.BookChapterEntity
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.RandomAccessFile
-import java.util.UUID
 import java.util.regex.Pattern
 
 /**
@@ -45,12 +45,19 @@ object LocalPageLoaderUtil {
     }
 
 
-    fun loadChapters(file: File): List<BookChapter> {
-        val bookId = UUID.randomUUID().toString()
+    fun loadChapters(
+        context: Context,
+        documentFile: DocumentFile,
+        bookId: String,
+    ): List<BookChapterEntity>? {
         //章节列表
-        val chapter = arrayListOf<BookChapter>()
+        val chapter = arrayListOf<BookChapterEntity>()
 
-        val randomAccessFile = RandomAccessFile(file, "r")
+//        val randomAccessFile = RandomAccessFile(documentFile, "r")
+
+
+        val randomAccessFile =
+            FileAccessHelper.getRandomAccessFile(context, documentFile) ?: return null
 
         //获取到当前数据章节的正则
         val chapterPattern = checkChapterPattern(randomAccessFile)
@@ -78,7 +85,12 @@ object LocalPageLoaderUtil {
 
                     if (chapter.isEmpty()) {
                         //序章
-                        val prologue = BookChapter(bookId, "序章", 0, content)
+                        val prologue = BookChapterEntity(
+                            bookId = bookId,
+                            chapterName = "序章",
+                            chapterNumber = 0,
+                            chapterContent = content
+                        )
                         chapter.add(prologue)
                     } else {
                         val lastChapter = chapter.last()
@@ -86,7 +98,11 @@ object LocalPageLoaderUtil {
                     }
 
                     //创建当前章节
-                    val newChapter = BookChapter(bookId, matcher.group(), chapter.size)
+                    val newChapter = BookChapterEntity(
+                        bookId = bookId,
+                        chapterName = matcher.group(),
+                        chapterNumber = chapter.size
+                    )
                     chapter.add(newChapter)
                 } else {
                     val content = blockContent.substring(seekPos, matcher.start())
@@ -94,7 +110,11 @@ object LocalPageLoaderUtil {
                         val lastChapter = chapter.last()
                         lastChapter.chapterContent = lastChapter.chapterContent + content
                     } else {
-                        val newChapter = BookChapter(bookId, matcher.group(), chapter.size)
+                        val newChapter = BookChapterEntity(
+                            bookId = bookId,
+                            chapterName = matcher.group(),
+                            chapterNumber = chapter.size
+                        )
                         newChapter.chapterContent = content
                         chapter.add(newChapter)
                     }

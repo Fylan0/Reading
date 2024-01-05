@@ -1,6 +1,7 @@
 package com.fylan.reading.core.database.model
 
 import androidx.room.ColumnInfo
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /**
@@ -8,10 +9,14 @@ import androidx.room.PrimaryKey
  * @date 2023/12/28
  * Describe: 章节表
  */
-data class BookChapter(
-    @PrimaryKey
+@Entity(
+    tableName = "tb_book_chapter"
+)
+data class BookChapterEntity(
+    @PrimaryKey(autoGenerate = true)
+    var serial: Long = 0,
     @ColumnInfo(name = "book_id")
-    val bookId: String,
+    var bookId: String,
     //章节名称
     @ColumnInfo(name = "chapter_name")
     var chapterName: String?,

@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.android.kotlin.jetbrains)
+    alias(libs.plugins.hilt)
+    kotlin("kapt")
 }
 
 android {
@@ -55,6 +57,7 @@ dependencies {
 //    implementation(projects.core.designsystem)
 //    implementation(projects.core.data)
     implementation(project(":core:designsystem"))
+    implementation(project(":core:data"))
     implementation(project(":feature:bookstore"))
     implementation(project(":feature:bookshelf"))
     implementation(project(":feature:read"))
@@ -79,7 +82,9 @@ dependencies {
     implementation(libs.androidx.compose.runtime.tracing)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material3.windowSizeClass)
+    implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
+    kapt(libs.hilt.compiler)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.window.manager)
     implementation(libs.androidx.profileinstaller)

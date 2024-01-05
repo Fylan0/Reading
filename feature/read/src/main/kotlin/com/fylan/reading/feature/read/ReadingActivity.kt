@@ -1,8 +1,6 @@
 package com.fylan.reading.feature.read
 
-import android.content.Context
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -10,7 +8,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -18,13 +15,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.fylan.reading.core.database.model.BookChapter
-import com.fylan.reading.feature.read.utils.LocalPageLoaderUtil
-import com.fylan.reading.feature.read.utils.LocalPageLoaderUtil.assetToFile
+import com.fylan.reading.core.database.model.BookChapterEntity
 
 /**
  * @author Create by f.
@@ -54,14 +48,14 @@ class ReadingActivity : ComponentActivity() {
 
     @Composable
     private fun reading() {
-        val chapter =
-            LocalPageLoaderUtil.loadChapters(LocalContext.current.assetToFile("剑来.txt")!!)
+//        val chapter =
+//            LocalPageLoaderUtil.loadChapters(LocalContext.current.assetToFile("剑来.txt")!!)
 
-        NovelReaderPage(chapter)
+//        NovelReaderPage(chapter)
     }
 
     @Composable
-    fun NovelReaderPage(bookChapter: List<BookChapter>) {
+    fun NovelReaderPage(bookChapter: List<BookChapterEntity>) {
         val fontSize: TextUnit = 26.sp
         Box(
             modifier = Modifier

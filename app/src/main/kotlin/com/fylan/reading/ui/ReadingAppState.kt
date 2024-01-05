@@ -16,6 +16,7 @@ import com.fylan.reading.feature.bookshelf.navigation.bookShelfNavDestinationRou
 import com.fylan.reading.feature.bookshelf.navigation.navigateToBookShelf
 import com.fylan.reading.feature.bookstore.navigation.bookStoreNavDestinationRoute
 import com.fylan.reading.feature.bookstore.navigation.navigateToBookStore
+import com.fylan.reading.feature.settings.navigation.navigateToFilePick
 import com.fylan.reading.navigation.TopLevelDestination
 import kotlinx.coroutines.CoroutineScope
 
@@ -123,6 +124,10 @@ class ReadingAppState(
                 }
             }
         }
+    }
+
+    fun navigateToFilePick(){
+        navController.navigateToFilePick()
     }
 
 }

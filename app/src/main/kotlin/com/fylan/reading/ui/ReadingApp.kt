@@ -34,6 +34,7 @@ import com.fylan.reading.core.designsystem.icon.component.ReadingTopAppBar
 import com.fylan.reading.feature.bookshelf.navigation.bookShelfNavDestinationRoute
 import com.fylan.reading.feature.bookshelf.navigation.bookShelfScreen
 import com.fylan.reading.feature.bookstore.navigation.bookStoreScreen
+import com.fylan.reading.feature.settings.navigation.filePickScreen
 import com.fylan.reading.navigation.TopLevelDestination
 import com.fylan.reading.feature.settings.R as settingsR
 
@@ -88,6 +89,7 @@ fun ReadingApp(
                             ),
                             onActionClick = {
                                 Log.d("ReadingApp", "top bar setting")
+                                appState.navigateToFilePick()
                             },
                             onNavigationClick = {
                                 Log.d("ReadingApp", "top bar add")
@@ -103,23 +105,30 @@ fun ReadingApp(
                         builder = {
                             bookShelfScreen { }
                             bookStoreScreen { }
+                            filePickScreen {
+                                //关闭文件选择页面
+                                appState.navController.popBackStack()
+                            }
                         }
                     )
                 }
             }
         },
         bottomBar = {
-            ReadingBottom(
-                modifier = Modifier.testTag("ReadingBottomBar"),
-                destinations = appState.topLevelDestination,
-                currentDestination = appState.currentDestination,
+            val destination = appState.currentTopLevelDestination
+            if (destination != null) {
+                ReadingBottom(
+                    modifier = Modifier.testTag("ReadingBottomBar"),
+                    destinations = appState.topLevelDestination,
+                    currentDestination = appState.currentDestination,
 //                onNavigateTopLevelDestination = { topLevelDestination ->
 //                    appState.navigateToTopLevelDestination(topLevelDestination)
 //                },
-                //在 Kotlin 中，:: 表示函数引用（Function Reference）操作符。
-                // 它用于引用函数而不调用它，允许你像对待普通值一样处理函数。上面简化后到下面这种写法（不易理解所以保留上面代码）
-                onNavigateTopLevelDestination = appState::navigateToTopLevelDestination,
-            )
+                    //在 Kotlin 中，:: 表示函数引用（Function Reference）操作符。
+                    // 它用于引用函数而不调用它，允许你像对待普通值一样处理函数。上面简化后到下面这种写法（不易理解所以保留上面代码）
+                    onNavigateTopLevelDestination = appState::navigateToTopLevelDestination,
+                )
+            }
         }
     )
 }

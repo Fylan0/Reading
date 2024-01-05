@@ -26,6 +26,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.fylan.reading.core.database.model.BookEntity
+import com.fylan.reading.feature.bookshelf.HomePage
 import com.fylan.reading.feature.bookshelf.R
 import kotlin.random.Random
 
@@ -50,67 +51,6 @@ fun NavGraphBuilder.bookShelfScreen(
     }
 }
 
-@Composable
-fun HomePage() {
-
-    // TODO: 这块要查数据库获取书架列表 
-    val itemList = listOf(
-        BookEntity(bookName = "斗破苍穹"),
-        BookEntity(bookName = "剑来"),
-        BookEntity(bookName = "凤凰传奇"),
-        BookEntity(bookName = "化身孤岛的蓝鲸"),
-        BookEntity(bookName = "英雄联盟"),
-        BookEntity(bookName = "哈迪斯"),
-        BookEntity(bookName = "饥荒"),
-        BookEntity(bookName = "残酷月光"),
-        BookEntity(bookName = "杭州滨江图书馆"),
-        BookEntity(bookName = "沈阳图书馆"),
-        // Add more items as needed
-    )
-    val context: Context = LocalContext.current
-    LazyVerticalGrid(columns = GridCells.Fixed(3)) {
-        items(itemList.size) { index ->
-            BookShelfItemCard(itemList[index]) { item ->
-                showToast(context, "Item clicked: ${item.bookName}")
-            }
-        }
-    }
-}
-
-@Composable
-fun BookShelfItemCard(
-    item: BookEntity,
-    onItemClick: (BookEntity) -> Unit,
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-            .clickable { onItemClick(item) },
-    ) {
-        //测试代码
-        val placeholderIdList = listOf(R.drawable.a123, R.drawable.a234, R.drawable.a345)
-        val randomIndex = Random.nextInt(placeholderIdList.size)
-        Image(
-            painter = painterResource(id = placeholderIdList[randomIndex]),
-            contentDescription = null,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(180.dp)
-                .clip(shape = RoundedCornerShape(8.dp)),
-            contentScale = ContentScale.Crop
-        )
-
-        Text(
-            text = item.bookName ?: "",
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            textAlign = TextAlign.Start,
-            fontWeight = FontWeight.Bold
-        )
-    }
-}
 
 fun showToast(context: Context, s: String) {
     Toast.makeText(context, s, Toast.LENGTH_SHORT).show()

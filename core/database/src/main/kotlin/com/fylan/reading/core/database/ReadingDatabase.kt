@@ -2,7 +2,9 @@ package com.fylan.reading.core.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.fylan.reading.core.database.dao.BookChapterDao
 import com.fylan.reading.core.database.dao.BookDao
+import com.fylan.reading.core.database.model.BookChapterEntity
 import com.fylan.reading.core.database.model.BookEntity
 
 /**
@@ -13,7 +15,8 @@ import com.fylan.reading.core.database.model.BookEntity
 @Database(
     version = 1,
     entities = [
-        BookEntity::class
+        BookEntity::class,
+        BookChapterEntity::class
     ],
     autoMigrations = [
 
@@ -22,4 +25,5 @@ import com.fylan.reading.core.database.model.BookEntity
 )
 abstract class ReadingDatabase : RoomDatabase() {
     abstract fun bookDao(): BookDao
+    abstract fun bookChapterDao(): BookChapterDao
 }
