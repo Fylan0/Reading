@@ -5,12 +5,13 @@ import android.util.Log
 import android.widget.Toast
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.AndroidViewModel
+import com.fylan.reading.core.common.network.Dispatcher
+import com.fylan.reading.core.common.network.ReadingDispatchers
 import com.fylan.reading.core.data.BookRepository
 import com.fylan.reading.core.database.model.BookEntity
 import com.fylan.reading.feature.settings.utils.LocalPageLoaderUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -23,10 +24,8 @@ import javax.inject.Inject
 class FilePickViewModel @Inject constructor(
     private val bookRepository: BookRepository,
     application: Application,
+    @Dispatcher(ReadingDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
 ) : AndroidViewModel(application) {
-
-    // TODO: 使用注解和hilt生成
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 
     suspend fun handleSelectedFile(
         selectedFile: DocumentFile?,
@@ -43,7 +42,11 @@ class FilePickViewModel @Inject constructor(
                     bookContent = selectedFile.uri.toString(),
                 )
                 //将选择的书籍文件根基拆分章节
-                val chapters = LocalPageLoaderUtil.loadChapters(getApplication(), selectedFile,bookEntity.bookId)
+                val chapters = LocalPageLoaderUtil.loadChapters(
+                    getApplication(),
+                    selectedFile,
+                    bookEntity.bookId
+                )
                 if (chapters == null) {
                     Toast.makeText(getApplication(), "添加失败，解析错误", Toast.LENGTH_SHORT).show()
                 } else {
