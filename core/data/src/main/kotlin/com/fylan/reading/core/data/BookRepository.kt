@@ -17,6 +17,6 @@ interface BookRepository {
 
     fun getBooks(): Flow<List<BookEntity>>
 
-    fun getBookChapters(bookId: String): Flow<List<BookChapterEntity>>
+    fun getBookChapters(bookId: String): List<BookChapterEntity>
 
 }

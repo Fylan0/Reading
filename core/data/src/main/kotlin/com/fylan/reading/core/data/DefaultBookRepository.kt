@@ -28,7 +28,7 @@ class DefaultBookRepository @Inject constructor(
         return bookDao.getAll()
     }
 
-    override fun getBookChapters(bookId: String): Flow<List<BookChapterEntity>> {
+    override fun getBookChapters(bookId: String): List<BookChapterEntity> {
         return bookChapterDao.getAll()
     }
 

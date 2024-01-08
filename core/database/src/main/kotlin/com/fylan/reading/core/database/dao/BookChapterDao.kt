@@ -24,5 +24,5 @@ interface BookChapterDao {
     fun delete(books: BookChapterEntity)
 
     @Query("SELECT * FROM tb_book_chapter")
-    fun getAll(): Flow<List<BookChapterEntity>>
+    fun getAll(): List<BookChapterEntity>
 }

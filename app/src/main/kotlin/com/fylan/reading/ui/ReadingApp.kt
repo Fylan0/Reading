@@ -34,6 +34,7 @@ import com.fylan.reading.core.designsystem.icon.component.ReadingTopAppBar
 import com.fylan.reading.feature.bookshelf.navigation.bookShelfNavDestinationRoute
 import com.fylan.reading.feature.bookshelf.navigation.bookShelfScreen
 import com.fylan.reading.feature.bookstore.navigation.bookStoreScreen
+import com.fylan.reading.feature.read.navigation.readScreen
 import com.fylan.reading.feature.settings.navigation.filePickScreen
 import com.fylan.reading.navigation.TopLevelDestination
 import com.fylan.reading.feature.settings.R as settingsR
@@ -103,12 +104,16 @@ fun ReadingApp(
                         startDestination = bookShelfNavDestinationRoute,
                         modifier = Modifier,
                         builder = {
-                            bookShelfScreen { }
+                            bookShelfScreen { bookId->
+                                //跳转到阅读页面
+                                appState.navigateToRead(bookId)
+                            }
                             bookStoreScreen { }
                             filePickScreen {
                                 //关闭文件选择页面
                                 appState.navController.popBackStack()
                             }
+                            readScreen {}
                         }
                     )
                 }
